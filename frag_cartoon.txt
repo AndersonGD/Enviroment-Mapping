@@ -1,0 +1,37 @@
+//Fragment shader contour detection
+//Blinn-Phong with same color for RGB
+#version 330
+layout(location = 0) out vec4 out_color;
+ 
+
+uniform vec3 light_position;
+uniform vec3 eye_position;
+ 
+uniform int material_shininess;
+uniform float material_kd;
+uniform float material_ks;
+ 
+in vec3 world_pos;
+in vec3 world_normal;
+
+in vec2 TexCoords;
+
+uniform sampler2D texture_diffuse1;
+ 
+void main()
+{
+ vec3 V = normalize( eye_position - world_pos);
+
+	vec3 color;
+ if((dot(V, world_normal) > 0.4)){
+	
+	out_color = texture(texture_diffuse1, TexCoords);
+ }
+ else{
+	
+	color = vec3(0,0,0);
+	out_color = vec4(color,1);
+ }
+ 
+ 
+}
